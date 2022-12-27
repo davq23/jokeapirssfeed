@@ -1,13 +1,13 @@
-const { Axios } = require('axios');
-const { Config } = require('../config/config.js');
+import { Axios } from 'axios';
+import Config from '../config/config.mjs';
 
-exports.textAxiosClient = new Axios({
+export const textAxiosClient = new Axios({
     baseURL: Config.apiUrl,
     timeout: 5000,
     responseType: 'text',
 });
 
-exports.jsonAxiosClient = new Axios({
+export const jsonAxiosClient = new Axios({
     baseURL: Config.apiUrl,
     timeout: 1000,
     headers: {

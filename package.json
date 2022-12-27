@@ -10,7 +10,7 @@
     "saxon-js": "^2.5.0"
   },
   "type": "commonjs",
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "devDependencies": {
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",

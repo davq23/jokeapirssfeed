@@ -1,6 +1,6 @@
-const { jsonAxiosClient } = require('../libs/http-client.js');
-const { Config } = require('../config/config.js');
-const AuthService = require('../services/auth.service.js');
+import { jsonAxiosClient } from '../libs/http-client.mjs';
+import Config from '../config/config.mjs';
+import AuthService from '../services/auth.service.mjs';
 
 let bearerToken = '';
 
@@ -34,4 +34,4 @@ const apiAuth = async (request, response, next) => {
     }
 };
 
-exports.apiAuth = apiAuth;
+export default apiAuth;

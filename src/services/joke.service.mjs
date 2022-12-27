@@ -1,6 +1,6 @@
-const HttpService = require('./http.service.js');
+import HttpService from './http.service.mjs';
 
-module.exports = class JokeService extends HttpService {
+export default class JokeService extends HttpService {
     getJokeXML(bearerToken) {
         return this.client.get('/jokes?format=xml', {
             headers: {
@@ -8,4 +8,4 @@ module.exports = class JokeService extends HttpService {
             },
         });
     }
-};
+}

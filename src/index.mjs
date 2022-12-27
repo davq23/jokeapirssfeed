@@ -1,6 +1,6 @@
-const express = require('express');
-const { apiAuth } = require('./middlewares/api-auth.middleware.js');
-const { feedController } = require('./controllers/feed.controller.js');
+import express from 'express';
+import apiAuth from './middlewares/api-auth.middleware.mjs';
+import feedController from './controllers/feed.controller.mjs';
 
 const app = express();
 

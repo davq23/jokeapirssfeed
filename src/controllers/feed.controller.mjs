@@ -1,6 +1,6 @@
-const SaxonJS = require('saxon-js');
-const { textAxiosClient } = require('../libs/http-client.js');
-const JokeService = require('../services/joke.service.js');
+import SaxonJS from 'saxon-js';
+import { textAxiosClient } from '../libs/http-client.mjs';
+import JokeService from '../services/joke.service.mjs';
 
 const jokeService = new JokeService(textAxiosClient);
 
@@ -23,4 +23,4 @@ const feedController = (request, response) => {
         });
 };
 
-exports.feedController = feedController;
+export default feedController;
