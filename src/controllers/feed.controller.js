@@ -4,7 +4,7 @@ import JokeService from '../services/joke.service.js';
 
 const jokeService = new JokeService(textAxiosClient);
 
-export const feedController = (request, response) => {
+const feedController = (request, response) => {
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
             SaxonJS.transform({
@@ -22,3 +22,5 @@ export const feedController = (request, response) => {
             });
         });
 };
+
+export default feedController;
