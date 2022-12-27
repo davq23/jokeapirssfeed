@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -9,4 +9,4 @@ const Config = {
     redisUrl: process.env.REDIS_URL,
 };
 
-export default Config;
+exports.Config = Config;

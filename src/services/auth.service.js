@@ -1,7 +1,7 @@
-import HttpService from './http.service.js';
-import redisClient from '../libs/redis-client.js';
+const HttpService = require('./http.service.js');
+const { redisClient } = require('../libs/redis-client.js');
 
-export default class AuthService extends HttpService {
+module.exports = class AuthService extends HttpService {
     async authorize(bearerToken) {
         return redisClient.HGET('JOKEAPI_TOKEN').then((token) => {
             this.bearerToken = token;
@@ -19,4 +19,4 @@ export default class AuthService extends HttpService {
             }
         });
     }
-}
+};
