@@ -1,8 +1,16 @@
-import { createClient } from "redis";
-import Config from "../config/config.js";
+const { createClient } = require('redis');
+const { Config } = require('../config/config.js');
 
 const redisClient = createClient({
     url: Config.redisUrl,
 });
 
-export default redisClient;
+(async () => {
+    try {
+        await redisClient.connect();
+    } catch(error) {
+        console.log(error);
+    }
+})();
+
+module.exports = { redisClient };

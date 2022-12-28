@@ -1,10 +1,10 @@
-import SaxonJS from 'saxon-js';
-import { textAxiosClient } from '../libs/http-client.js';
-import JokeService from '../services/joke.service.js';
+const SaxonJS = require('saxon-js');
+const { textAxiosClient } = require('../libs/http-client.js');
+const { JokeService } = require('../services/joke.service.js');
 
 const jokeService = new JokeService(textAxiosClient);
 
-export const feedController = (request, response) => {
+const feedController = (request, response) => {
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
             SaxonJS.transform({
@@ -22,3 +22,5 @@ export const feedController = (request, response) => {
             });
         });
 };
+
+module.exports = { feedController };

@@ -1,8 +1,8 @@
-import { jsonAxiosClient } from '../libs/http-client.js';
-import Config from '../config/config.js';
-import AuthService from '../services/auth.service.js';
+const { jsonAxiosClient } = require('../libs/http-client.js');
+const { Config } = require('../config/config.js');
+const { AuthService } = require('../services/auth.service.js');
 
-let bearerToken = "";
+let bearerToken = '';
 
 const authService = new AuthService(jsonAxiosClient);
 
@@ -10,9 +10,13 @@ const apiAuth = async (request, response, next) => {
     try {
         let authResponse = null;
 
-        authResponse = await authService.authorize(bearerToken);
+        try {
+            authResponse = await authService.authorize(bearerToken);
+        } catch (error) {
+            console.timeLog(error);
+        }
 
-        if (authResponse.data.status !== 200) {
+        if (!authResponse || authResponse.data.status !== 200) {
             bearerToken = null;
             authResponse = await authService.authenticate(Config.user, Config.password);
 
@@ -23,15 +27,15 @@ const apiAuth = async (request, response, next) => {
 
         request.bearerToken = bearerToken;
     } catch (error) {
-        console.log(error);
+        console.timeLog(error);
     }
 
     if (request.bearerToken) {
-        next(request, response);
+        next();
     } else {
         response.status(400);
         response.end();
     }
 };
 
-export default apiAuth;
+module.exports = { apiAuth };

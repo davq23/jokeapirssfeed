@@ -1,11 +1,10 @@
-import express from 'express';
-import apiAuth from './middlewares/api-auth.middleware.js';
-import { feedController } from './controllers/feed.controller.js';
+const express = require('express');
+const { feedRouter } = require('./router/feed.router.js');
 
 const app = express();
 
 // Feed controller
-app.get('/jokeapi.rss', feedController).use(apiAuth);
+app.use('/feed', feedRouter);
 
 app.listen(process.env.LISTENING_PORT, () => {
     console.log("Let's rock");

@@ -9,7 +9,7 @@
     "redis": "^4.5.1",
     "saxon-js": "^2.5.0"
   },
-  "type": "module",
+  "type": "commonjs",
   "main": "src/index.js",
   "devDependencies": {
     "eslint": "^8.30.0",
