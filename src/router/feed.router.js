@@ -8,6 +8,7 @@ feedRouter.use(apiAuth);
 
 feedRouter.get('/jokeapi.rss', feedController);
 
+// Auto deploy this
 module.exports = {
     feedRouter,
 };
