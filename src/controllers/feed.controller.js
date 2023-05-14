@@ -23,4 +23,6 @@ const feedController = (request, response) => {
         });
 };
 
-module.exports = { feedController };
+module.exports = {
+    feedController,
+};
