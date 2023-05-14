@@ -1,41 +1,33 @@
 const { jsonAxiosClient } = require('../libs/http-client.js');
 const { Config } = require('../config/config.js');
 const { AuthService } = require('../services/auth.service.js');
-
-let bearerToken = '';
+const { redisClient } = require('../libs/redis-client.js');
 
 const authService = new AuthService(jsonAxiosClient);
 
 const apiAuth = async (request, response, next) => {
     try {
         let authResponse = null;
+        let bearerToken = await redisClient.get('JOKE_API_AUTH_TOKEN');
 
-        try {
-            authResponse = await authService.authorize(bearerToken);
-            console.log(authResponse);
-        } catch(error) {
-            console.log("ERROR: "+error);
-        }
-
-        if (!authResponse.data || authResponse.data.status !== 200) {
+        if (!bearerToken) {
             bearerToken = null;
             authResponse = await authService.authenticate(Config.user, Config.password);
 
-            console.log(authResponse);
             if (authResponse.data.status === 200) {
                 bearerToken = authResponse.data.data.token;
+                await redisClient.set('JOKE_API_AUTH_TOKEN', authResponse.data.data.token);
+                await redisClient.expireAt('JOKE_API_AUTH_TOKEN', authResponse.data.data.expires_at);
             }
         }
-        
-        console.log("BEARER:"+bearerToken);
 
         request.bearerToken = bearerToken;
     } catch (error) {
-        console.log("ERROR: "+error);
+        // eslint-disable-next-line no-console
+        console.error(error);
     }
 
     if (request.bearerToken) {
-        console.log(request.bearerToken);
         next();
     } else {
         response.status(400);

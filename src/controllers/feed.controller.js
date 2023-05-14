@@ -5,7 +5,6 @@ const { JokeService } = require('../services/joke.service.js');
 const jokeService = new JokeService(textAxiosClient);
 
 const feedController = (request, response) => {
-    console.log(request.bearerToken);
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
             SaxonJS.transform({

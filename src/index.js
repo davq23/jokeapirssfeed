@@ -7,5 +7,6 @@ const app = express();
 app.use('/feed', feedRouter);
 
 app.listen(process.env.LISTENING_PORT, () => {
+    // eslint-disable-next-line no-console
     console.log("Let's rock");
 });
