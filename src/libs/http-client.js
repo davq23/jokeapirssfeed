@@ -1,3 +1,4 @@
+const https = require('https');
 const { Axios } = require('axios');
 const { Config } = require('../config/config.js');
 
@@ -5,6 +6,9 @@ const textAxiosClient = new Axios({
     baseURL: Config.apiUrl,
     timeout: 5000,
     responseType: 'text',
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+    }),
 });
 
 const jsonAxiosClient = new Axios({
