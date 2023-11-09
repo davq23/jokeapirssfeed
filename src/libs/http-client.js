@@ -2,6 +2,8 @@ const https = require('https');
 const { Axios } = require('axios');
 const { Config } = require('../config/config.js');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const textAxiosClient = new Axios({
     baseURL: Config.apiUrl,
     timeout: 5000,
