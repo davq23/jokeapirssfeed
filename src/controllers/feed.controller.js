@@ -7,12 +7,9 @@ const jokeService = new JokeService(textAxiosClient);
 const feedController = (request, response) => {
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
-            const useXSLT = request.query.useXSLT === 'true';
             const transformOptions = {
-                stylesheetFileName: useXSLT ? 'src/templates/stylesheet.xslt' : 'src/templates/stylesheet.sef.json',
                 sourceText: jokeXMLResponse.data,
                 destination: 'serialized',
-                type: useXSLT ? 'xml' : 'json',
             };
 
             SaxonJS.transform(transformOptions, 'async')
