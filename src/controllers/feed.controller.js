@@ -7,14 +7,15 @@ const jokeService = new JokeService(textAxiosClient);
 const feedController = (request, response) => {
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
-            const stylesheetLocation = request.query.useXSLT ? 'src/templates/stylesheet.xslt'
-                : 'src/templates/stylesheet.sef.json';
-
-            SaxonJS.transform({
-                stylesheetFileName: stylesheetLocation,
+            const useXSLT = request.query.useXSLT === 'true';
+            const transformOptions = {
+                stylesheetFileName: useXSLT ? 'src/templates/stylesheet.xslt' : 'src/templates/stylesheet.sef.json',
                 sourceText: jokeXMLResponse.data,
                 destination: 'serialized',
-            }, 'async')
+                type: useXSLT ? 'xml' : 'json',
+            };
+
+            SaxonJS.transform(transformOptions, 'async')
             .then((output) => {
                 response.writeHead(200, {
                     'Content-Type': 'application/rss+xml;charset=UTF-8',
