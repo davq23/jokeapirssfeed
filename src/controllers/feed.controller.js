@@ -8,6 +8,7 @@ const feedController = (request, response) => {
     jokeService.getJokeXML(request.bearerToken)
         .then((jokeXMLResponse) => {
             const transformOptions = {
+                stylesheetFileName: 'src/templates/stylesheet.sef.json',
                 sourceText: jokeXMLResponse.data,
                 destination: 'serialized',
             };
